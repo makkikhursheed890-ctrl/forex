@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Markets Today | PipsPath</title>
+    <link rel="icon" id="appFavicon" type="image/svg+xml" href="favicon.svg">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body class="no-anim">
+
+    <!-- Rate strip: full width, sits above the sidebar. Values are placeholders, connect your live API here -->
+    <div class="strip" aria-label="Market rates">
+        <div class="strip-track" id="track"></div>
+    </div>
+
+    <div class="app">
+
+        <button class="menu-backdrop" id="menuBackdrop" aria-label="Close menu" tabindex="-1"></button>
+
+        <aside class="drawer" id="drawer" aria-label="Main menu">
+            <div class="d-head">
+                <button class="icon-btn" id="openBtn" aria-label="Open sidebar" aria-expanded="false"
+                    aria-controls="drawer" title="Open sidebar">
+                    <svg class="mark" viewBox="0 0 32 32" fill="none">
+                        <rect width="32" height="32" rx="8" fill="#0F2238" />
+                        <path d="M7 22l6-7 4 4 8-10" stroke="#C9A24B" stroke-width="2.6" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                    <svg class="i toggle" viewBox="0 0 24 24">
+                        <rect x="3" y="3" width="18" height="18" rx="3" />
+                        <path d="M9 3v18" />
+                    </svg>
+                </button>
+                <div class="expanded-head">
+                    <span class="title">PipsPath</span>
+                    <div class="tools">
+                        <button class="icon-btn" id="searchBtn" aria-label="Search" title="Search"><svg class="i"
+                                viewBox="0 0 24 24">
+                                <circle cx="11" cy="11" r="7" />
+                                <path d="M20 20l-3.5-3.5" />
+                            </svg></button>
+                        <button class="icon-btn" id="closeBtn" aria-label="Close sidebar" title="Close sidebar"><svg
+                                class="i" viewBox="0 0 24 24">
+                                <rect x="3" y="3" width="18" height="18" rx="3" />
+                                <path d="M9 3v18" />
+                            </svg></button>
+                    </div>
+                </div>
+            </div>
+            <div class="search"><input id="q" type="search" placeholder="Search pairs, lessons, signals"
+                    aria-label="Search menu"></div>
+
+            <nav class="d-body" id="body"></nav>
+
+            <div class="d-foot">
+                <button type="button" class="user" id="editProfileBtn" aria-label="Edit your profile"
+                    title="Edit profile">
+                    <span class="avatar">T</span>
+                    <span class="user-copy"><b id="profileDisplayName">Your Name</b><small>Free trial</small></span>
+                    <svg class="profile-edit-icon" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="m14 5 5 5M4 20l4.5-1 10-10a2.1 2.1 0 0 0-3-3l-10 10L4 20Z" />
+                    </svg>
+                </button>
+                <a href="#" class="btn" id="upgradePricingBtn">
+                    <svg class="i" viewBox="0 0 24 24" style="width:18px;height:18px">
+                        <rect x="3" y="8" width="18" height="4" rx="1" />
+                        <path
+                            d="M12 8v13M19 12v9H5v-9M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8s1-5 4.5-5a2.5 2.5 0 0 1 0 5" />
+                    </svg>
+                    Upgrade to Pro
+                </a>
+            </div>
+        </aside>
+
+        <div class="main">
+            <header class="top">
+                <button class="icon-btn mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu" aria-expanded="false"
+                    aria-controls="drawer" title="Open menu">
+                    <svg class="i" viewBox="0 0 24 24">
+                        <path d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+                <div class="actions">
+                    <a href="#" class="btn btn-ghost" id="loginLink">Log in</a>
+                    <a href="#" class="btn btn-main" id="trialLink">Start 3-day trial</a>
+                </div>
+            </header>
+
+            <main>
+                <section id="homeView" aria-labelledby="homeTitle">
+                    <h1 id="homeTitle">Markets today</h1>
+                    <p>Track the markets and plan your next move.</p>
+                    <div class="cards" id="cards"></div>
+                </section>
+                <section id="pricingView" class="pricing-view" aria-labelledby="pricingTitle" hidden>
+                    <div class="pricing-heading">
+                        <div class="pricing-title-line">
+                            <span class="eyebrow">PIPSPATH MEMBERSHIP</span>
+                            <h1 id="pricingTitle">Choose your <span id="pricingTypewriter"
+                                    aria-label="trading edge">trading edge</span></h1>
+                        </div>
+                        <p>Get the tools and guidance to trade with more confidence.</p>
+                    </div>
+                    <div class="pricing-grid">
+                        <article class="pricing-card" id="plan-starter">
+                            <div class="plan-top">
+                                <div><span class="plan-label">STARTER PLAN</span>
+                                    <h2>Forex Starter</h2>
+                                </div>
+                            </div>
+                            <p class="plan-description">Build your foundation and follow the markets.</p>
+                            <div class="price"><strong>$9</strong><span>/ month</span></div>
+                            <p class="billing-note">Billed monthly · Cancel anytime</p>
+                            <a href="#" class="btn btn-outline plan-cta">Choose Starter</a>
+                            <ul class="plan-features">
+                                <li>Daily market updates</li>
+                                <li>Forex basics course</li>
+                                <li>Personal watchlist</li>
+                                <li>Economic calendar</li>
+                            </ul>
+                            <p class="plan-footnote">Great for getting started.</p>
+                        </article>
+                        <article class="pricing-card featured" id="plan-pro">
+                            <div class="plan-top">
+                                <div><span class="plan-label">PRO PLAN</span>
+                                    <h2>Forex Pro</h2>
+                                </div><span class="plan-badge">POPULAR</span>
+                            </div>
+                            <p class="plan-description">Everything you need to build a smarter trading routine.</p>
+                            <div class="price"><strong>$19</strong><span>/ month</span></div>
+                            <p class="billing-note">Billed monthly · Cancel anytime</p>
+                            <a href="#" class="btn btn-main plan-cta">Start 3-day free trial</a>
+                            <ul class="plan-features">
+                                <li>Live forex signals and market analysis</li>
+                                <li>Full access to trading courses</li>
+                                <li>Advanced charts and watchlists</li>
+                                <li>Economic calendar and trade tools</li>
+                                <li>Member-only market outlooks</li>
+                            </ul>
+                            <p class="plan-footnote">No charge during your 3-day trial.</p>
+                        </article>
+                        <article class="pricing-card" id="plan-elite">
+                            <div class="plan-top">
+                                <div><span class="plan-label">ELITE PLAN</span>
+                                    <h2>Forex Elite</h2>
+                                </div>
+                            </div>
+                            <p class="plan-description">Extra insight and support for active traders.</p>
+                            <div class="price"><strong>$39</strong><span>/ month</span></div>
+                            <p class="billing-note">Billed monthly · Cancel anytime</p>
+                            <a href="#" class="btn btn-outline plan-cta">Choose Elite</a>
+                            <ul class="plan-features">
+                                <li>Everything in Forex Pro</li>
+                                <li>Priority signal alerts</li>
+                                <li>Weekly expert session</li>
+                                <li>Advanced trade reviews</li>
+                            </ul>
+                            <p class="plan-footnote">For traders ready to go further.</p>
+                        </article>
+                    </div>
+                </section>
+                <section id="searchView" class="search-view" aria-labelledby="searchTitle" hidden>
+                    <div class="search-page-heading">
+                        <span class="eyebrow">PIPSPATH SEARCH</span>
+                        <h1 id="searchTitle">What are you looking for?</h1>
+                        <p>Search markets, trading plans, and learning tools.</p>
+                    </div>
+                    <form id="pageSearchForm" class="page-search-form" role="search">
+                        <svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+                            <circle cx="11" cy="11" r="7" />
+                            <path d="M20 20l-3.5-3.5" />
+                        </svg>
+                        <input id="pageSearchInput" type="search" placeholder="" autocomplete="off"
+                            aria-label="Search PipsPath">
+                        <button type="button" id="clearPageSearch" class="clear-search" aria-label="Clear search"
+                            hidden>×</button>
+                    </form>
+                    <div class="search-result-meta" id="searchResultMeta" aria-live="polite">Start typing to search
+                        PipsPath</div>
+                    <div class="search-suggestions" id="searchSuggestions">
+                        <span>Popular searches</span>
+                        <button type="button" data-search-suggestion="EUR/USD">EUR/USD</button>
+                        <button type="button" data-search-suggestion="Forex Pro">Forex Pro</button>
+                        <button type="button" data-search-suggestion="Signals">Signals</button>
+                        <button type="button" data-search-suggestion="Pricing">Pricing</button>
+                    </div>
+                    <div class="search-results" id="searchResults" role="region" aria-label="Search results"></div>
+                </section>
+                <section id="loginView" class="login-view" aria-labelledby="authTitle" hidden>
+                    <div class="login-visual">
+                        <span class="eyebrow">PIPSPATH ACCOUNT</span>
+                        <div class="login-brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32">
+                                <path d="M4 23l7-8 5 5 11-13M20 7h7v7" />
+                            </svg></div>
+                        <h1>Trade with a clearer view.</h1>
+                        <p>Sign in to keep your profile and trading workspace together across sessions.</p>
+                        <div class="login-visual-footer"><span class="login-live-dot"></span> A focused workspace for
+                            every market day</div>
+                    </div>
+                    <div class="login-form-panel">
+                        <div class="auth-heading"><span class="auth-kicker">SECURE ACCESS</span>
+                            <h2 id="authTitle">Welcome back</h2>
+                            <p id="authDescription">Sign in to continue to your PipsPath workspace.</p>
+                        </div>
+                        <form id="authForm" novalidate>
+                            <label class="auth-field" id="authNameField" hidden><span>Full name</span><input
+                                    id="authName" type="text" autocomplete="name" maxlength="60"
+                                    placeholder="Your name"></label>
+                            <label class="auth-field"><span>Email address</span><input id="authEmail" type="email"
+                                    autocomplete="email" required placeholder="you@example.com"></label>
+                            <label class="auth-field"><span>Password</span><span class="auth-password-wrap"><input
+                                        id="authPassword" type="password" autocomplete="current-password" minlength="6"
+                                        required placeholder="Enter your password"><button type="button"
+                                        id="toggleAuthPassword" aria-label="Show password">Show</button></span></label>
+                            <div class="auth-options"><span id="authPasswordHint">Use at least 6
+                                    characters.</span><button type="button" id="forgotPassword">Forgot
+                                    password?</button></div>
+                            <button type="submit" class="auth-submit" id="authSubmit"><span>Sign in</span><svg
+                                    viewBox="0 0 24 24" aria-hidden="true">
+                                    <path d="M5 12h14M13 6l6 6-6 6" />
+                                </svg></button>
+                            <div class="auth-message" id="authMessage" role="status" aria-live="polite" hidden></div>
+                        </form>
+                        <p class="auth-switch"><span id="authSwitchPrompt">New to PipsPath?</span><button type="button"
+                                id="authModeToggle">Create an account</button></p>
+                        <p class="auth-privacy">Your account details are securely managed by Firebase Authentication.
+                        </p>
+                    </div>
+                </section>
+                <section id="calendarView" class="calendar-view" hidden>
+                    <header class="topbar">
+                        <div class="calendar-shell-label"><span class="calendar-brand-mark">P</span><span>Economic
+                                calendar</span></div>
+                        <div class="topbar-right">
+                            <div class="clock-block"><span id="currentDate">—</span><strong
+                                    id="currentClock">--:--:--</strong></div>
+                            <label class="timezone-control"><span class="sr-only">Timezone</span>
+                                <svg viewBox="0 0 24 24" aria-hidden="true">
+                                    <circle cx="12" cy="12" r="9" />
+                                    <path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18" />
+                                </svg>
+                                <select id="timezoneSelect" aria-label="Display timezone">
+                                    <option value="Asia/Karachi">Pakistan (PKT)</option>
+                                    <option value="UTC">UTC</option>
+                                    <option value="America/New_York">New York</option>
+                                    <option value="Europe/London">London</option>
+                                    <option value="Asia/Tokyo">Tokyo</option>
+                                    <option value="Australia/Sydney">Sydney</option>
+                                </select>
+                            </label>
+                            <button class="icon-button" id="searchToggle" type="button" aria-label="Open event search"
+                                title="Search events"><svg viewBox="0 0 24 24" aria-hidden="true">
+                                    <circle cx="11" cy="11" r="7" />
+                                    <path d="m20 20-4-4" />
+                                </svg></button>
+                            <button class="refresh-button" id="refreshButton" type="button"><svg viewBox="0 0 24 24"
+                                    aria-hidden="true">
+                                    <path d="M20 7v5h-5M4 17v-5h5" />
+                                    <path d="M6.1 9A7 7 0 0 1 18 6l2 6M4 12l2 6a7 7 0 0 0 11.9-3" />
+                                </svg><span>Refresh</span></button>
+                        </div>
+                    </header>
+
+                    <div class="dashboard">
+                        <section class="page-heading">
+                            <div>
+                                <div class="breadcrumb"><span>Markets</span><span
+                                        class="crumb-separator">/</span><strong>Economic calendar</strong></div>
+                                <h1>Economic Calendar</h1>
+                                <p>Track the macro events moving global currency markets.</p>
+                            </div>
+                            <div class="last-updated"><span class="live-pulse"></span><span id="lastUpdated">Loading
+                                    calendar…</span></div>
+                        </section>
+
+                        <section class="summary-grid" aria-label="Today's event summary">
+                            <article class="summary-card">
+                                <div class="summary-top"><span class="summary-label">Events today</span><span
+                                        class="summary-icon icon-blue"><svg viewBox="0 0 24 24" aria-hidden="true">
+                                            <rect x="3" y="5" width="18" height="16" rx="2" />
+                                            <path d="M16 3v4M8 3v4M3 10h18" />
+                                        </svg></span></div>
+                                <strong class="summary-value" id="totalToday">—</strong><span
+                                    class="summary-caption">Scheduled for today</span>
+                            </article>
+                            <article class="summary-card">
+                                <div class="summary-top"><span class="summary-label">High impact</span><span
+                                        class="summary-icon icon-red"><svg viewBox="0 0 24 24" aria-hidden="true">
+                                            <path d="m12 3 10 18H2L12 3Z" />
+                                            <path d="M12 9v5M12 17h.01" />
+                                        </svg></span></div>
+                                <strong class="summary-value" id="highToday">—</strong><span
+                                    class="summary-caption">Events today</span>
+                            </article>
+                            <article class="summary-card">
+                                <div class="summary-top"><span class="summary-label">Next 24 hours</span><span
+                                        class="summary-icon icon-green"><svg viewBox="0 0 24 24" aria-hidden="true">
+                                            <circle cx="12" cy="12" r="9" />
+                                            <path d="M12 7v5l3 2" />
+                                        </svg></span></div>
+                                <strong class="summary-value" id="next24Count">—</strong><span
+                                    class="summary-caption">Upcoming events</span>
+                            </article>
+                            <article class="summary-card summary-next">
+                                <div class="summary-top"><span class="summary-label">Next high-impact event</span><span
+                                        class="summary-icon icon-gold"><svg viewBox="0 0 24 24" aria-hidden="true">
+                                            <path
+                                                d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1m8.6 8.6 2.1 2.1m0-12.8-2.1 2.1m-8.6 8.6-2.1 2.1" />
+                                            <circle cx="12" cy="12" r="5" />
+                                        </svg></span></div>
+                                <strong class="summary-event" id="nextHighName">Finding next event…</strong><span
+                                    class="summary-caption" id="nextHighCountdown">—</span>
+                            </article>
+                        </section>
+
+                        <section class="calendar-panel" aria-labelledby="calendarTitle">
+                            <div class="panel-heading">
+                                <div>
+                                    <h2 id="calendarTitle">Event schedule</h2>
+                                    <p id="visibleCount">Loading events</p>
+                                </div>
+                                <div class="date-shortcuts" role="group" aria-label="Quick date range">
+                                    <button type="button" class="date-chip active" data-range="today">Today</button>
+                                    <button type="button" class="date-chip" data-range="tomorrow">Tomorrow</button>
+                                    <button type="button" class="date-chip" data-range="week">This week</button>
+                                    <button type="button" class="date-chip" data-range="custom">Custom</button>
+                                </div>
+                            </div>
+
+                            <div class="filter-bar">
+                                <label class="search-field" id="eventSearchField" hidden>
+                                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                                        <circle cx="11" cy="11" r="7" />
+                                        <path d="m20 20-4-4" />
+                                    </svg>
+                                    <input id="eventSearch" type="search" placeholder="Search events or currencies"
+                                        autocomplete="off" aria-label="Search events or currencies">
+                                    <button type="button" id="clearSearch" aria-label="Clear search">×</button>
+                                </label>
+                                <label class="filter-control"><span>Currency</span><select id="currencyFilter">
+                                        <option value="all">All currencies</option>
+                                        <option>USD</option>
+                                        <option>EUR</option>
+                                        <option>GBP</option>
+                                        <option>JPY</option>
+                                        <option>AUD</option>
+                                        <option>CAD</option>
+                                        <option>CHF</option>
+                                        <option>NZD</option>
+                                        <option>CNY</option>
+                                    </select></label>
+                                <label class="filter-control"><span>Impact</span><select id="impactFilter">
+                                        <option value="all">All impact</option>
+                                        <option value="high">High</option>
+                                        <option value="medium">Medium</option>
+                                        <option value="low">Low</option>
+                                    </select></label>
+                                <label class="filter-control"><span>Category</span><select id="categoryFilter">
+                                        <option value="all">All categories</option>
+                                        <option>Inflation</option>
+                                        <option>Interest Rates</option>
+                                        <option>Employment</option>
+                                        <option>GDP</option>
+                                        <option>PMI</option>
+                                        <option>Retail Sales</option>
+                                        <option>Central Bank Speeches</option>
+                                    </select></label>
+                                <div class="custom-dates" id="customDates" hidden>
+                                    <label><span>From</span><input type="date" id="dateFrom"
+                                            aria-label="Start date"></label>
+                                    <label><span>To</span><input type="date" id="dateTo" aria-label="End date"></label>
+                                </div>
+                                <label class="toggle-control"><input type="checkbox" id="highOnly"><span
+                                        class="toggle-track"></span><span>High impact</span></label>
+                                <label class="toggle-control favorites-toggle"><input type="checkbox"
+                                        id="favoritesOnly"><span
+                                        class="toggle-track"></span><span>Favorites</span></label>
+                                <button type="button" class="reset-button" id="resetFilters">Reset</button>
+                            </div>
+
+                            <div class="api-message" id="apiMessage" role="status" hidden></div>
+                            <div class="loading-state" id="loadingState" hidden><span
+                                    class="spinner"></span><span>Loading economic events…</span></div>
+                            <div class="empty-state" id="emptyState" hidden><span
+                                    class="empty-symbol">∅</span><strong>No events match these filters</strong><span>Try
+                                    changing the date range or resetting your filters.</span><button type="button"
+                                    id="emptyReset">Reset filters</button></div>
+                            <div class="table-wrap" id="tableWrap">
+                                <table class="event-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Time</th>
+                                            <th>Currency</th>
+                                            <th>Impact</th>
+                                            <th>Event</th>
+                                            <th>Actual</th>
+                                            <th>Forecast</th>
+                                            <th>Previous</th>
+                                            <th><span class="sr-only">Details</span></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="eventRows"></tbody>
+                                </table>
+                            </div>
+                            <div class="mobile-events" id="mobileEvents"></div>
+                            <footer class="panel-footer"><span id="eventCountFooter">—</span><span>Times shown in
+                                    <strong id="timezoneLabel">Pakistan (PKT)</strong></span></footer>
+                        </section>
+
+                        <aside class="upcoming-panel" aria-labelledby="upcomingTitle">
+                            <div class="upcoming-heading">
+                                <div><span class="section-kicker">STAY AHEAD</span>
+                                    <h2 id="upcomingTitle">Upcoming high impact</h2>
+                                </div><span class="upcoming-count" id="upcomingCount">0</span>
+                            </div>
+                            <p class="upcoming-intro">The next major releases on the calendar.</p>
+                            <div id="upcomingEvents" class="upcoming-list"></div>
+                            <div class="favorite-note"><span class="favorite-note-icon">★</span>
+                                <p>Star a currency in the schedule to save it to your favorites.</p>
+                            </div>
+                        </aside>
+
+                    </div>
+                </section>
+            </main>
+        </div>
+
+    </div>
+
+    <dialog class="history-dialog" id="historyDialog" aria-labelledby="historyDialogTitle">
+        <form id="historyDialogForm">
+            <span class="dialog-eyebrow" id="historyDialogEyebrow">RECENT HISTORY</span>
+            <h2 id="historyDialogTitle">Delete all history?</h2>
+            <p id="historyDialogMessage">This will remove all recent items from this browser.</p>
+            <label class="rename-field" id="renameField" for="renameInput" hidden>History name<input id="renameInput"
+                    maxlength="48" autocomplete="off"></label>
+            <div class="dialog-actions"><button type="button" class="btn btn-ghost"
+                    id="historyCancel">Cancel</button><button type="submit" class="btn btn-danger"
+                    id="historyConfirm">Delete history</button></div>
+        </form>
+    </dialog>
+
+    <dialog class="history-dialog profile-dialog" id="profileDialog" aria-labelledby="profileDialogTitle">
+        <form id="profileForm">
+            <span class="dialog-eyebrow">PIPSPATH PROFILE</span>
+            <h2 id="profileDialogTitle">Edit your profile</h2>
+            <p>Choose the name shown in your sidebar.</p>
+            <div class="profile-photo-row">
+                <span class="avatar profile-avatar-preview" id="profileAvatarPreview" aria-hidden="true">YN</span>
+                <div class="profile-photo-actions">
+                    <div class="profile-photo-buttons"><label class="profile-upload-button"
+                            for="profileImageInput">Upload photo</label><button type="button"
+                            class="profile-remove-button" id="removeProfileImage">Remove</button></div>
+                    <small>JPG, PNG or WebP · Stored in this browser</small>
+                    <input type="file" id="profileImageInput" accept="image/*" hidden>
+                </div>
+            </div>
+            <p class="profile-image-error" id="profileImageError" role="status" aria-live="polite"></p>
+            <label class="rename-field" for="profileNameInput">Display name<input id="profileNameInput" maxlength="32"
+                    autocomplete="name" required></label>
+            <div class="dialog-actions"><button type="button" class="btn btn-danger" id="profileSignOut" hidden>Sign
+                    out</button><button type="button" class="btn btn-ghost" id="profileCancel">Cancel</button><button
+                    type="submit" class="btn btn-main">Save changes</button></div>
+        </form>
+    </dialog>
+
+    <script src="main.js"></script>
+    <script src="app.js"></script>
+    <script type="module" src="auth.js"></script>
+</body>
+
+</html>
